@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Globo IA</title>
+<meta name="theme-color" content="#05060f">
+<script>
+/* PWA em arquivo único: gera ícones e manifest na hora */
+var ICON192;
+(function(){
+function ic(S,pad){var c=document.createElement('canvas');c.width=c.height=S;var g=c.getContext('2d');
+ var cx=S/2,cy=S*(.44+pad*.02),R=S*.27*(1-pad*1.4);
+ g.fillStyle='#060818';g.fillRect(0,0,S,S);
+ var gr=g.createRadialGradient(cx,cy,0,cx,cy,R*1.7);gr.addColorStop(0,'#1e2878');gr.addColorStop(1,'#060818');g.fillStyle=gr;g.fillRect(0,0,S,S);
+ var N=700,t=.5;
+ for(var i=0;i<N;i++){var y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),a=i*2.39996,x=Math.cos(a)*r,z=Math.sin(a)*r,y2=y*Math.cos(t)-z*Math.sin(t),z2=y*Math.sin(t)+z*Math.cos(t);if(z2<-.1)continue;
+  var k=90+120*Math.max(0,z2);g.fillStyle='rgb('+(k/2+40|0)+','+(k/2+60|0)+',255)';g.beginPath();g.arc(cx+x*R,cy-y2*R,S*.0036*(.6+.5*z2)+.4,0,6.283);g.fill()}
+ var cols=['#3ddc84','#ff4d5e','#4da3ff','#ffc247','#b66dff'],sp=[[-.55,.35,.76],[.3,.6,.74],[.62,-.15,.77],[-.25,-.5,.83],[.05,.05,1]];
+ var P=sp.map(function(v){var n=Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);return[cx+v[0]/n*R,cy-v[1]/n*R]});
+ g.strokeStyle='#bccdff';g.lineWidth=S*.006;
+ [[0,1],[1,2],[0,4],[3,4]].forEach(function(l){g.beginPath();g.moveTo(P[l[0]][0],P[l[0]][1]);g.lineTo(P[l[1]][0],P[l[1]][1]);g.stroke()});
+ P.forEach(function(p,i){g.fillStyle=cols[i];g.globalAlpha=.35;g.beginPath();g.arc(p[0],p[1],S*.057,0,6.283);g.fill();g.globalAlpha=1;g.beginPath();g.arc(p[0],p[1],S*.03,0,6.283);g.fill()});
+ var ty=S*(.9-pad*.07);g.fillStyle='#eef0ff';g.textAlign='center';g.font='700 '+(S*.115*(1-pad*.9))+'px system-ui,Arial,sans-serif';g.fillText('GLOBO IA',cx,ty);
+ g.fillStyle='#8aa4ff';g.fillRect(cx-S*.1,ty+S*.035,S*.2,S*.008);
+ return c.toDataURL('image/png')}
+try{
+ var i192=ic(192,0),i512=ic(512,0),im=ic(512,.25),i180=ic(180,0);ICON192=i192;
+ function L(rel,href,extra){var l=document.createElement('link');l.rel=rel;l.href=href;if(extra)l.type=extra;document.head.appendChild(l)}
+ L('icon',i192,'image/png');L('apple-touch-icon',i180);
+ var o=location.origin,m={name:'Globo IA',short_name:'Globo IA',description:'Minhas responsabilidades em um globo de bolinhas.',
+  start_url:o+location.pathname,scope:o+'/',display:'standalone',orientation:'portrait',background_color:'#05060f',theme_color:'#05060f',lang:'pt-BR',
+  icons:[{src:i192,sizes:'192x192',type:'image/png'},{src:i512,sizes:'512x512',type:'image/png'},{src:im,sizes:'512x512',type:'image/png',purpose:'maskable'}]};
+ L('manifest',URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'})));
+}catch(e){}
+})();
+</script>
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Globo IA">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05060f;--ink:#eef0ff;--mute:#9aa0c8;--glass:rgba(16,18,40,.72);--line:rgba(160,170,255,.22);--accent:#8aa4ff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:'Sora',system-ui,-apple-system,sans-serif;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+body{background:radial-gradient(ellipse at 50% 55%,#141646 0%,#080a22 45%,#03040b 100%)}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+#top{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);padding:16px 20px;pointer-events:none}
+#top h1{margin:0;font-size:22px;font-weight:600;letter-spacing:.01em}
+#top p{margin:4px 0 0;font-size:13px;color:var(--mute);font-weight:300}
+#hint{position:fixed;left:0;right:0;bottom:calc(96px + env(safe-area-inset-bottom,0px));text-align:center;font-size:13px;color:var(--mute);pointer-events:none;transition:opacity .6s}
+#fab{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);padding:14px 26px;border-radius:999px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);font:600 15px 'Sora',system-ui,sans-serif;cursor:pointer;box-shadow:0 0 28px rgba(120,140,255,.35);transition:opacity .25s}
+#fab.off{opacity:0;pointer-events:none}
+#sheet{position:fixed;left:0;right:0;bottom:0;margin:0 auto;max-width:540px;max-height:68vh;overflow:auto;padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px));background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.8,.2,1);touch-action:pan-y;-webkit-user-select:text;user-select:text}
+#sheet.open{transform:none}
+.cat{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
+.dot{width:10px;height:10px;border-radius:50%;box-shadow:0 0 10px currentColor;background:currentColor}
+#sheet h2{margin:8px 0 6px;font-size:21px;font-weight:600;line-height:1.25}
+.notes{margin:0 0 12px;font-size:15px;line-height:1.55;color:#cfd3f5;font-weight:300;white-space:pre-wrap}
+.meta{font-size:13px;color:var(--mute);margin:6px 0}
+.late{color:#ff9aa8}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chip{padding:5px 11px;border-radius:999px;border:1px solid var(--line);font-size:12px;color:#cfd3f5}
+.links{margin:12px 0;padding:12px;border-radius:14px;background:rgba(120,140,255,.1);font-size:13px;line-height:1.6;color:#cfd3f5}
+.links b{font-weight:600}
+.links button{all:unset;cursor:pointer;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.row{display:flex;gap:10px;margin-top:14px}
+.row button,.btn{flex:1;padding:12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);font:400 14px 'Sora',system-ui,sans-serif;cursor:pointer}
+.row .main{background:var(--accent);color:#06081c;border-color:transparent;font-weight:600}
+.row .del{color:#ff9aa8;flex:0 0 auto}
+label{display:block;font-size:12px;color:var(--mute);margin:12px 0 5px}
+input,select,textarea{width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(5,6,20,.6);color:var(--ink);font:400 15px 'Sora',system-ui,sans-serif;outline:none}
+input:focus,select:focus,textarea:focus,button:focus-visible{border-color:var(--accent);box-shadow:0 0 0 2px rgba(138,164,255,.35)}
+textarea{min-height:76px;resize:vertical}
+small{display:block;margin-top:5px;color:var(--mute);font-size:12px}
+@media (prefers-reduced-motion:reduce){#sheet{transition:none}}
+#legend{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 66px);padding:0 20px;display:flex;flex-wrap:wrap;gap:6px}
+#legend button{display:flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--glass);color:var(--ink);font:300 12px 'Sora',system-ui,sans-serif;cursor:pointer}
+.sw{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0}
+.sw button{all:unset;cursor:pointer;display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);font-size:13px}
+.sw button.on{border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.35)}
+.crow{display:flex;gap:8px;align-items:center;margin:8px 0}
+.crow input[type=color]{width:46px;height:42px;padding:2px;flex:0 0 auto}
+.crow button{flex:0 0 auto;padding:10px 12px}
+.chk{display:flex;gap:10px;align-items:center;margin:14px 0;font-size:14px;color:#cfd3f5}
+.chk input{width:20px;height:20px;flex:0 0 auto}
+.frow{display:flex;align-items:center;gap:8px;margin:6px 0}
+.frow .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frow span{color:var(--mute);font-size:12px;flex:0 0 auto}
+.frow .x{flex:0 0 auto;text-decoration:none;color:#ff9aa8;padding:4px 8px}
+#view{position:fixed;inset:0;z-index:20;background:rgba(3,4,14,.96);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);touch-action:pan-x pan-y;-webkit-user-select:text;user-select:text}
+#view[hidden]{display:none}
+.vh{display:flex;align-items:center;gap:8px;padding:14px 16px;font-size:14px}
+.vh span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vh button{padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink);font:400 13px 'Sora',system-ui,sans-serif;cursor:pointer}
+.vb{flex:1;overflow:auto;padding:0 16px 16px;display:flex;justify-content:center;align-items:flex-start}
+.vb img,.vb video{max-width:100%;max-height:100%;border-radius:10px}
+.vb pre{margin:0;white-space:pre-wrap;word-break:break-word;font:400 13px/1.5 ui-monospace,Menlo,monospace;color:#cfd3f5;width:100%}
+.vb p{color:var(--mute);font-size:14px;line-height:1.6}
+#auth{position:fixed;inset:0;z-index:40;background:radial-gradient(ellipse at 50% 30%,#141646 0%,#080a22 55%,#03040b 100%);display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;touch-action:manipulation;-webkit-user-select:text;user-select:text}
+#auth[hidden]{display:none}
+.ac{width:100%;max-width:360px;text-align:center}
+.ac img{border-radius:20px;box-shadow:0 0 36px rgba(110,130,255,.4)}
+.ac h1{margin:14px 0 4px;font-size:26px;font-weight:600}
+.ac p{margin:0 0 18px;color:var(--mute);font-size:14px}
+.ac input[type=email],.ac input[type=password]{margin-bottom:10px;text-align:left}
+.ac .chk{justify-content:center;margin:10px 0}
+.ac .late{min-height:20px;font-size:13px;margin-bottom:6px}
+.main2{width:100%;padding:14px;border-radius:12px;border:0;background:var(--accent);color:#06081c;font:600 15px 'Sora',system-ui,sans-serif;cursor:pointer}
+.lnk{all:unset;display:block;margin:16px auto 0;color:var(--mute);font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+#out{position:fixed;right:16px;top:calc(env(safe-area-inset-top,0px) + 16px);padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass);color:var(--mute);font:300 12px 'Sora',system-ui,sans-serif;cursor:pointer}
+.attach{position:relative;flex:1;display:block;text-align:center;padding:12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ink);font:400 14px 'Sora',system-ui,sans-serif;cursor:pointer;overflow:hidden}
+.attach input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;padding:0;border:0}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="top"><h1>Meu globo</h1><p id="stats"></p></div>
+<div id="hint">Toque numa bolinha. Arraste para girar, pince para aproximar.</div>
+<div id="legend"></div>
+<button id="fab">Nova bolinha</button>
+<div id="view" hidden></div>
+<button id="out">Sair</button>
+<div id="auth" hidden></div>
+<div id="sheet" role="dialog" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const KEY='globo-v1';
+const rnd=()=>Math.random(),uid=()=>Math.random().toString(36).slice(2);
+function sph(){const u=rnd()*2-1,a=rnd()*6.283,r=Math.sqrt(1-u*u);return[r*Math.cos(a),u,r*Math.sin(a)]}
+function seed(){const c=[{id:'c1',name:'Trabalho',color:'#3ddc84'},{id:'c2',name:'Urgente',color:'#ff4d5e'},{id:'c3',name:'Estudos',color:'#4da3ff'},{id:'c4',name:'Casa',color:'#ffc247'},{id:'c5',name:'Pessoal',color:'#b66dff'}];
+const m=(t,cat,tags,n)=>({id:uid(),title:t,cat,tags,notes:n||'',due:'',done:false,p:sph()});
+return{cats:c,link:false,items:[m('Entregar relatório mensal','c1',['carreira'],'Exemplo: edite, mova ou apague esta bolinha.'),m('Terminar curso online','c3',['carreira','inglês']),m('Praticar inglês','c3',['inglês','viagem']),m('Planejar viagem','c5',['viagem']),m('Pagar conta de luz','c2',['contas']),m('Pagar aluguel','c2',['contas','casa']),m('Arrumar o armário','c4',['casa'])]}}
+let S;try{const x=localStorage.getItem(KEY);S=x?JSON.parse(x):seed()}catch(e){S=seed()}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const normTags=s=>[...new Set(s.split(',').map(t=>t.trim().toLowerCase().replace(/^#/,'')).filter(Boolean))];
+const cat=id=>S.cats.find(c=>c.id===id)||S.cats[0];
+const days=it=>Math.round((new Date(it.due+'T00:00')-new Date(new Date().toDateString()))/864e5);
+const urg=()=>S.items.filter(i=>i.due&&!i.done&&days(i)<=3).sort((a,b)=>days(a)-days(b));
+const dtxt=n=>n<0?'atrasada '+(-n)+(n===-1?' dia':' dias'):n===0?'vence hoje':n===1?'vence amanhã':'vence em '+n+' dias';
+function urgList(){selId=null;build();open(`<h2 style="margin-top:0">Perto do prazo</h2><p class="meta">Tarefas não concluídas com 3 dias ou menos para o prazo.</p><div class="links">${urg().map(i=>`<div class="frow"><button class="nm" data-go="${i.id}">${esc(i.title)}</button><span>${dtxt(days(i))}</span></div>`).join('')}</div><div class="row"><button data-act="close">Fechar</button></div>`)}
+const $=id=>document.getElementById(id);
+const idb=()=>new Promise((ok,no)=>{const r=indexedDB.open('globo-files',1);r.onupgradeneeded=()=>r.result.createObjectStore('f');r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+const idbDo=async(mode,fn)=>{const d=await idb();return new Promise((ok,no)=>{const t=d.transaction('f',mode),q=fn(t.objectStore('f'));t.oncomplete=()=>ok(q&&q.result);t.onerror=()=>no(t.error)})};
+const fput=(id,b)=>idbDo('readwrite',o=>o.put(b,id));
+const fget=id=>idbDo('readonly',o=>o.get(id));
+const fdel=id=>idbDo('readwrite',o=>o.delete(id)).catch(()=>{});
+const fsize=n=>n>1e6?(n/1e6).toFixed(1)+' MB':Math.max(1,Math.round(n/1e3))+' KB';
+
+/* ---------- 3D ---------- */
+const R=3;
+const renderer=new THREE.WebGLRenderer({canvas:$('c'),antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(50,1,.1,100);
+let dist=10;camera.position.set(0,0,dist);
+const gal=new THREE.Group();gal.rotation.x=.35;scene.add(gal);
+function glowTex(){const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d'),gr=g.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.3,'rgba(255,255,255,.5)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,64,64);return new THREE.CanvasTexture(c)}
+const GT=glowTex();
+const ball=new THREE.Mesh(new THREE.SphereGeometry(R,48,48),new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));gal.add(ball);
+// grade de pontinhos e meridianos
+(function(){const N=2600,p=new Float32Array(N*3);for(let i=0;i<N;i++){const y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),a=i*2.39996;p[i*3]=Math.cos(a)*r*R*1.004;p[i*3+1]=y*R*1.004;p[i*3+2]=Math.sin(a)*r*R*1.004}
+const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));gal.add(new THREE.Points(g,new THREE.PointsMaterial({size:.05,color:0x7a8cff,transparent:true,opacity:.85,depthWrite:false})));
+const l=[];for(let k=0;k<12;k++){const a=k*Math.PI/6;for(let i=0;i<64;i++){const t1=i/64*6.2832,t2=(i+1)/64*6.2832;const f=t=>[Math.cos(t)*Math.cos(a)*R*1.002,Math.sin(t)*R*1.002,Math.cos(t)*Math.sin(a)*R*1.002];l.push(...f(t1),...f(t2))}}
+const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(l,3));
+const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:0x4a5cff,transparent:true,opacity:.15,blending:THREE.AdditiveBlending,depthWrite:false}));halo.scale.set(11,11,1);scene.add(halo)})();
+
+const dotG=new THREE.Group(),lineG=new THREE.Group();gal.add(lineG,dotG);
+let nodes=[],selId=null,placing=null;
+const hitGeo=new THREE.SphereGeometry(.28,8,8),coreGeo=new THREE.SphereGeometry(.085,16,16);
+
+function linked(a,b){const t=a.tags.filter(x=>b.tags.includes(x));if(t.length)return t.map(x=>'#'+x);if(S.link&&a.cat===b.cat)return['mesma cor'];return null}
+function allLinks(){const o=[];for(let i=0;i<S.items.length;i++)for(let j=i+1;j<S.items.length;j++){const w=linked(S.items[i],S.items[j]);if(w)o.push([i,j,w])}return o}
+function arc(a,b,out){const A=new THREE.Vector3(...a),B=new THREE.Vector3(...b),w=Math.acos(Math.max(-1,Math.min(1,A.dot(B)))),n=28;let prev=null;
+ for(let i=0;i<=n;i++){const t=i/n,s=Math.sin(w)||1e-4,v=A.clone().multiplyScalar(Math.sin((1-t)*w)/s).add(B.clone().multiplyScalar(Math.sin(t*w)/s)).normalize().multiplyScalar(R*(1.012+(.04+.38*w/Math.PI)*Math.sin(Math.PI*t)));
+  if(prev)out.push(prev.x,prev.y,prev.z,v.x,v.y,v.z);prev=v}}
+
+function build(){
+  dotG.clear();lineG.clear();nodes=[];
+  S.items.forEach(it=>{const col=new THREE.Color(cat(it.cat).color),g=new THREE.Group();g.position.set(...it.p).multiplyScalar(R*1.02);
+    const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:col,transparent:true,opacity:it.done?.25:1,blending:THREE.AdditiveBlending,depthWrite:false}));
+    const core=new THREE.Mesh(coreGeo,new THREE.MeshBasicMaterial({color:it.done?0x666688:col}));
+    const hit=new THREE.Mesh(hitGeo,new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));hit.userData.id=it.id;
+    g.add(glow,core,hit);dotG.add(g);nodes.push({id:it.id,glow,core,urg:!it.done&&!!it.due&&days(it)<=3})});
+  const L=allLinks(),dim=[],hot=[];
+  L.forEach(([i,j])=>{const a=S.items[i],b=S.items[j];arc(a.p,b.p,(a.id===selId||b.id===selId)?hot:dim)});
+  const mk=(arr,c,o)=>{if(!arr.length)return;const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(arr,3));lineG.add(new THREE.LineSegments(g,new THREE.LineBasicMaterial({color:c,transparent:true,opacity:o,blending:THREE.AdditiveBlending,depthWrite:false})))};
+  mk(dim,0x9fb0ff,.4);mk(hot,0xffffff,1);
+  $('stats').textContent=S.items.length+(S.items.length===1?' bolinha':' bolinhas')+', '+L.length+(L.length===1?' conexão':' conexões');
+  $('legend').innerHTML=S.cats.map(c=>`<button disabled style="color:${c.color}"><span class="dot"></span><span style="color:var(--ink)">${esc(c.name)}</span></button>`).join('')+'<button data-act="cats">Editar cores</button>'+(urg().length?`<button data-act="urg" style="color:#ff9aa8;border-color:#ff9aa8">${urg().length} perto do prazo</button>`:'');
+  $('legend').querySelectorAll('button[disabled]').forEach(b=>b.disabled=false);
+}
+function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}
+addEventListener('resize',resize);resize();
+const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;let drag=false;
+function tick(t){requestAnimationFrame(tick);
+  if(!drag&&!calm&&!placing)gal.rotation.y+=.0014;
+  camera.position.z+=(dist-camera.position.z)*.1;
+  nodes.forEach((n,i)=>{const sel=n.id===selId,u=n.urg,p=1+Math.sin(t*(u?.008:.003)+i*1.9)*(u?.3:.12),s=(sel?.9:u?.75:.5)*p;n.glow.scale.set(s,s,1);n.core.scale.setScalar(sel?1.5:1)});
+  renderer.render(scene,camera)}
+
+/* ---------- gestos ---------- */
+const ptrs=new Map();let pinch=0,moved=0,downT=0;const cv=$('c');
+const pd=()=>{const[a,b]=[...ptrs.values()];return Math.hypot(a[0]-b[0],a[1]-b[1])};
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,[e.clientX,e.clientY]);drag=true;moved=0;downT=performance.now();if(ptrs.size===2)pinch=pd()});
+cv.addEventListener('pointermove',e=>{if(!ptrs.has(e.pointerId))return;const p=ptrs.get(e.pointerId),dx=e.clientX-p[0],dy=e.clientY-p[1];ptrs.set(e.pointerId,[e.clientX,e.clientY]);
+  if(ptrs.size===2){const d=pd();dist=Math.min(18,Math.max(5.5,dist*(pinch/d)));pinch=d;moved+=10;return}
+  moved+=Math.abs(dx)+Math.abs(dy);gal.rotation.y+=dx*.006;gal.rotation.x=Math.max(-1.5,Math.min(1.5,gal.rotation.x+dy*.006))});
+cv.addEventListener('pointerup',e=>{ptrs.delete(e.pointerId);if(!ptrs.size){drag=false;if(moved<8&&performance.now()-downT<500)tap(e)}});
+cv.addEventListener('pointercancel',e=>{ptrs.delete(e.pointerId);drag=false});
+cv.addEventListener('wheel',e=>{e.preventDefault();dist=Math.min(18,Math.max(5.5,dist+e.deltaY*.01))},{passive:false});
+const ray=new THREE.Raycaster();
+function tap(e){ray.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1),camera);
+  if(placing){const h=ray.intersectObject(ball)[0];if(!h)return;const p=gal.worldToLocal(h.point.clone()).normalize().toArray(),mv=placing.move;endPlace();
+    if(mv){const it=S.items.find(x=>x.id===mv);it.p=p;save();select(it.id)}else form(null,p);return}
+  const h=ray.intersectObjects(dotG.children.flatMap(g=>g.children.filter(c=>c.userData.id)))[0];
+  if(h)select(h.object.userData.id);else close()}
+function startPlace(move){placing={move};sheet.classList.remove('open');fab.textContent='Cancelar';fab.classList.remove('off');hint.textContent='Toque no globo onde a bolinha deve ficar.';hint.style.opacity=1}
+function endPlace(){placing=null;fab.textContent='Nova bolinha';hint.style.opacity=0}
+
+/* ---------- painel ---------- */
+const sheet=$('sheet'),fab=$('fab'),hint=$('hint');let pend=null,fcat=null;
+function open(h){sheet.innerHTML=h;sheet.scrollTop=0;sheet.classList.add('open');fab.classList.add('off');hint.style.opacity=0}
+function close(){selId=null;sheet.classList.remove('open');if(!placing)fab.classList.remove('off');build()}
+function select(id){selId=id;build();const it=S.items.find(x=>x.id===id),idx=S.items.indexOf(it),c=cat(it.cat);
+  const con=allLinks().filter(l=>l[0]===idx||l[1]===idx).map(l=>({o:S.items[l[0]===idx?l[1]:l[0]],t:l[2]}));
+  const late=it.due&&!it.done&&new Date(it.due+'T23:59:59')<new Date(),due=it.due?new Date(it.due+'T00:00').toLocaleDateString('pt-BR',{day:'numeric',month:'long'}):'';
+  open(`<div class="cat" style="color:${c.color}"><span class="dot"></span><span style="color:var(--mute)">${esc(c.name)}${it.done?' – concluída':''}</span></div><h2>${esc(it.title)}</h2>
+  ${it.notes?`<p class="notes">${esc(it.notes)}</p>`:''}${due?`<div class="meta ${late?'late':''}">${late?'Atrasada desde':'Prazo:'} ${due}</div>`:''}
+  ${it.tags.length?`<div class="chips">${it.tags.map(t=>`<span class="chip">#${esc(t)}</span>`).join('')}</div>`:''}
+  ${con.length?`<div class="links"><b>Ligada a ${con.length} ${con.length>1?'bolinhas':'bolinha'}:</b><br>${con.map(x=>`<button data-go="${x.o.id}">${esc(x.o.title)}</button> (${x.t.map(esc).join(' ')})`).join('<br>')}</div>`:'<div class="meta">Sem ligações. Use a mesma #tag em outra bolinha para ligá-las.</div>'}
+  <div class="links"><b>Arquivos</b>${(it.files||[]).map(f=>`<div class="frow"><button class="nm" data-open="${f.id}">${esc(f.name)}</button><span>${fsize(f.size)}</span><button class="x" data-rmf="${f.id}" aria-label="Remover arquivo">×</button></div>`).join('')}<div class="row" style="margin-top:8px"><label class="attach">Anexar arquivo<input type="file" id="fi" multiple></label></div><small>Se a tela de escolher arquivo não abrir, atualize a página ou use o Chrome.</small></div>
+  <div class="row"><button class="main" data-act="done">${it.done?'Reabrir':'Concluir'}</button><button data-act="edit">Editar</button><button data-act="move">Mover</button></div>
+  <div class="row"><button data-act="close">Fechar</button><button class="del" data-act="del">Excluir</button></div>`)}
+function swatches(){return S.cats.map(c=>`<button data-sw="${c.id}" class="${c.id===fcat?'on':''}" style="color:${c.color}"><span class="dot"></span><span style="color:var(--ink)">${esc(c.name)}</span></button>`).join('')}
+function form(it,pos){const n=!it;it=it||{title:'',cat:S.cats[0].id,tags:[],notes:'',due:''};fcat=it.cat;pend=pos||null;sheet.dataset.editing=n?'':it.id;
+  open(`<h2 style="margin-top:0">${n?'Nova bolinha':'Editar bolinha'}</h2><label for="f-t">O que você precisa fazer?</label><input id="f-t" value="${esc(it.title)}" maxlength="80">
+  <label>Cor</label><div class="sw" id="sw">${swatches()}</div>
+  <label for="f-g">Mesmo assunto ou obrigação (#tags)</label><input id="f-g" value="${esc(it.tags.join(', '))}" placeholder="contas, viagem, carreira"><small>Bolinhas com a mesma tag se ligam. Separe por vírgula.</small>
+  <label for="f-d">Prazo (opcional)</label><input id="f-d" type="date" value="${it.due||''}"><label for="f-n">Anotações</label><textarea id="f-n">${esc(it.notes)}</textarea>
+  <div class="row"><button class="main" data-act="save">Salvar</button><button data-act="${n?'close':'back'}">Cancelar</button></div>`);
+  if(n)selId=null}
+function catsForm(){open(`<h2 style="margin-top:0">Cores</h2><p class="meta">Defina o que cada cor significa.</p>${S.cats.map((c,i)=>`<div class="crow"><input type="color" data-ci="${i}" value="${c.color}"><input data-cn="${i}" value="${esc(c.name)}" maxlength="24">${S.items.some(x=>x.cat===c.id)||S.cats.length<2?'':`<button data-act="delcat" data-i="${i}">×</button>`}</div>`).join('')}
+  <button class="btn" data-act="addcat" style="width:100%;margin-top:6px">Adicionar cor</button>
+  <label class="chk"><input type="checkbox" id="lk" ${S.link?'checked':''}>Ligar também bolinhas da mesma cor</label>
+  <div class="row"><button class="main" data-act="savecats">Salvar</button><button data-act="close">Cancelar</button></div>`)}
+function readCats(){document.querySelectorAll('[data-ci]').forEach(i=>S.cats[+i.dataset.ci].color=i.value);document.querySelectorAll('[data-cn]').forEach(i=>S.cats[+i.dataset.cn].name=i.value.trim()||'Sem nome');S.link=$('lk').checked}
+fab.onclick=()=>{if(placing){endPlace();if(selId)select(selId);return}startPlace(null)};
+sheet.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.go)return select(t.dataset.go);
+  if(t.dataset.sw){fcat=t.dataset.sw;$('sw').innerHTML=swatches();return}
+  if(t.dataset.open)return openFile(t.dataset.open);
+  if(t.dataset.rmf){const o=S.items.find(x=>x.id===selId);if(o&&confirm('Remover este arquivo?')){o.files=o.files.filter(f=>f.id!==t.dataset.rmf);fdel(t.dataset.rmf);save();select(o.id)}return}
+  const a=t.dataset.act;if(!a)return;const it=S.items.find(x=>x.id===selId);
+  if(a==='attach')$('fi').click();else if(a==='close')close();else if(a==='back')select(selId);else if(a==='edit')form(it);else if(a==='move')startPlace(it.id);
+  else if(a==='done'){it.done=!it.done;save();select(it.id)}
+  else if(a==='del'){if(confirm('Excluir esta bolinha?')){(it.files||[]).forEach(f=>fdel(f.id));S.items=S.items.filter(x=>x!==it);save();close()}}
+  else if(a==='addcat'){readCats();S.cats.push({id:uid(),name:'Nova cor',color:'#'+Math.floor(rnd()*0xffffff).toString(16).padStart(6,'0')});catsForm()}
+  else if(a==='delcat'){readCats();S.cats.splice(+t.dataset.i,1);catsForm()}
+  else if(a==='savecats'){readCats();save();close()}
+  else if(a==='save'){const title=$('f-t').value.trim();if(!title){$('f-t').focus();return}
+    const d={title,cat:fcat,tags:normTags($('f-g').value),due:$('f-d').value,notes:$('f-n').value.trim()},id=sheet.dataset.editing;
+    if(id){Object.assign(S.items.find(x=>x.id===id),d);save();select(id)}else{const ni={id:uid(),done:false,p:pend||sph(),...d};S.items.push(ni);save();select(ni.id)}}});
+$('legend').addEventListener('click',e=>{if(e.target.closest('[data-act=cats]')){selId=null;build();catsForm()}else if(e.target.closest('[data-act=urg]'))urgList()});
+sheet.addEventListener('change',async e=>{if(e.target.id!=='fi')return;const it=S.items.find(x=>x.id===selId),fl=[...e.target.files];e.target.value='';if(!it)return;
+  for(const f of fl){try{const id=uid();await fput(id,f);(it.files=it.files||[]).push({id,name:f.name,type:f.type,size:f.size})}catch(err){alert('Não foi possível guardar "'+f.name+'". Talvez falte espaço no navegador.')}}
+  save();select(it.id)});
+async function openFile(id){const it=S.items.find(x=>x.id===selId),f=it.files.find(x=>x.id===id);let blob=null;try{blob=await fget(id)}catch(e){}
+  if(!blob){alert('Arquivo não encontrado neste aparelho.');return}
+  const v=$('view');v.hidden=false;v.innerHTML='<div class="vh"><span></span><button data-v="dl">Baixar</button><button data-v="x">Fechar</button></div><div class="vb" id="vb"></div>';
+  v.querySelector('span').textContent=f.name;const vb=$('vb');let url=null;
+  if(/^(image|video|audio)\//.test(f.type)){url=URL.createObjectURL(blob);const k=f.type.split('/')[0],m=document.createElement(k==='image'?'img':k);m.src=url;if(k!=='image')m.controls=true;vb.append(m)}
+  else if(/^text\/|json$/.test(f.type)||/\.(md|txt|csv|json)$/i.test(f.name)){const p=document.createElement('pre');p.textContent=(await blob.text()).slice(0,100000);vb.append(p)}
+  else vb.innerHTML='<p>Sem prévia para este tipo de arquivo. Toque em Baixar para abrir no seu aparelho.</p>';
+  v.onclick=async ev=>{const b=ev.target.closest('button');if(!b)return;
+    if(b.dataset.v==='x'){if(url)URL.revokeObjectURL(url);v.hidden=true;v.innerHTML='';return}
+    const u2=URL.createObjectURL(blob),a=document.createElement('a');a.href=u2;a.download=f.name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u2),30000)}}
+/* ---------- conta (neste aparelho) ---------- */
+const AK='globo-auth',hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+async function hashPw(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);return hex(await crypto.subtle.deriveBits({name:'PBKDF2',salt:new TextEncoder().encode(salt),iterations:120000,hash:'SHA-256'},k,256))}
+const getAuth=()=>{try{return JSON.parse(localStorage.getItem(AK))}catch(e){return null}};
+function enter(keep){try{keep?localStorage.setItem('globo-keep','1'):localStorage.removeItem('globo-keep');sessionStorage.setItem('globo-sess','1')}catch(e){}$('auth').hidden=true;$('auth').innerHTML=''}
+function showAuth(){const a=getAuth(),v=$('auth');selId=null;sheet.classList.remove('open');fab.classList.remove('off');v.hidden=false;
+  v.innerHTML=`<div class="ac"><img src="${ICON192||''}" alt="" width="88" height="88"><h1>Globo IA</h1><p>${a?'Entre na sua conta':'Crie sua conta neste aparelho'}</p>
+  <input id="a-e" type="email" autocomplete="username" placeholder="E-mail" value="${a?esc(a.email):''}"><input id="a-p" type="password" autocomplete="${a?'current-password':'new-password'}" placeholder="Senha">
+  ${a?'':'<input id="a-p2" type="password" autocomplete="new-password" placeholder="Repita a senha">'}
+  <label class="chk"><input type="checkbox" id="a-k" checked>Manter conectado neste aparelho</label><div id="a-m" class="late"></div>
+  <button class="main2" id="a-go">${a?'Entrar':'Criar conta'}</button>${a?'<button class="lnk" id="a-f">Esqueci a senha</button>':''}</div>`;
+  $('a-go').onclick=async()=>{const m=$('a-m');m.textContent='';const em=$('a-e').value.trim().toLowerCase(),pw=$('a-p').value;
+    if(!/^\S+@\S+\.\S+$/.test(em)){m.textContent='Digite um e-mail válido.';return}
+    if(!a){if(pw.length<6){m.textContent='A senha precisa ter pelo menos 6 caracteres.';return}if(pw!==$('a-p2').value){m.textContent='As senhas não são iguais.';return}}
+    try{if(!window.crypto||!crypto.subtle)throw 0;
+      if(a){if(em!==a.email||await hashPw(pw,a.salt)!==a.hash){m.textContent='E-mail ou senha incorretos.';return}}
+      else{const salt=uid()+uid();localStorage.setItem(AK,JSON.stringify({email:em,salt,hash:await hashPw(pw,salt)}))}
+      enter($('a-k').checked)}catch(e){m.textContent='Não foi possível entrar neste navegador.'}};
+  if(a)$('a-f').onclick=()=>{if(confirm('Não há como recuperar a senha. Para criar outra conta, é preciso apagar tudo deste aparelho: bolinhas e arquivos. Apagar tudo?')){try{['globo-auth',KEY,'globo-keep'].forEach(k=>localStorage.removeItem(k));sessionStorage.clear();indexedDB.deleteDatabase('globo-files')}catch(e){}setTimeout(()=>location.reload(),300)}}}
+$('out').onclick=()=>{try{localStorage.removeItem('globo-keep');sessionStorage.removeItem('globo-sess')}catch(e){}showAuth()};
+let okLogin=false;try{okLogin=!!(getAuth()&&(localStorage.getItem('globo-keep')||sessionStorage.getItem('globo-sess')))}catch(e){}
+if(!okLogin)showAuth();
+build();requestAnimationFrame(tick);
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+</script>
+</body>
+</html>
